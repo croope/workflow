@@ -1,0 +1,34 @@
+rect {
+    height: 80px;
+	width: 175px;
+	stroke: black;
+	fill: lightgrey;
+	position: inherit;
+}
+
+line.xaxis, line.yaxis {
+	stroke: lavender;
+	stroke-width: 1px;
+}
+
+rect.dragging{
+	height: 80px;
+	width: 175px;
+	stroke: black;
+	fill: lightblue;
+}
+
+rect.selected{
+	height: 80px;
+	width: 175px;
+	stroke: steelblue;
+	stroke-width: 3px;
+	fill: lightgrey;
+}
+
+text {
+  fill: black;
+  font-size: 18px;
+  font-family:Tahoma,Arial,sans-serif,Helvetica,Verdana,Arial,sans-serif;
+  position: inherit;
+}
