@@ -21,14 +21,15 @@ function setupDragAndZoom() {
         })
         .on("dragend", function (d) {
         	d3.event.sourceEvent.stopPropagation();
+        	d3.event.sourceEvent.stopPropagation();
         	d3.select(this).classed("dragging", false);
         });
 
     this.zoom = d3.behavior.zoom()
-    			  .scaleExtent([0.2, 1.5])
-    			  .on("zoom", function () {
-                      d3.select('g').attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-                  });
+        .scaleExtent([0.2, 1.5])
+        .on("zoom", function () {
+          d3.select('g').attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        });
 }
 
 setupDragAndZoom();
@@ -90,6 +91,11 @@ function createNodes() {
     		return d.y + 40;
     	})
     	.attr('text-anchor', 'middle');
+}
+
+function createkLinks() {
+    // Create the data for the links
+
 }
 
 createGrid();
