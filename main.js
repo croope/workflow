@@ -2,7 +2,8 @@
 this.nodeData = [
     {id: 1, x: 10, y: 10, label: 'Start', transitions: [{id:50, fromStateId: 1, toStateId: 2, label: 'Forward'}]},
     {id: 2, x: 200, y: 200, label: 'End', transitions: [{id: 51, fromStateId: 2, toStateId: 1, label: 'Back'}]},
-    {id: 3, x: 500, y: 10, label: 'Middle', transitions: [{id: 52, fromStateId: 2, toStateId: 3, label: 'Onwards'}]}
+    {id: 3, x: 500, y: 10, label: 'Middle', transitions: [{id: 52, fromStateId: 3, toStateId: 2, label: 'Onwards'}]},
+    {id: 4, x: 200, y: 10, label: 'Shire', transitions: [{id: 53, fromStateId: 4, toStateId: 3, label: 'Back Again'}]}
 ];
 
 function onNodeMove(node) {
@@ -19,7 +20,7 @@ function linkPopup(link) {
 }
 
 function redrawLines() {
-    var rects = svg.selectAll("rect");
+    var rects = svg.selectAll('rect');
 
     var obj = [];
     for (a = 0; a < rects[0].length; a++) {
@@ -50,7 +51,7 @@ function setupDragAndZoom() {
         		return "translate(" + [d.x, d.y] + ")";
         	});
 
-            redrawLines();
+            //redrawLines();
         })
         .on("dragstart", function (d) {
         	d3.event.sourceEvent.stopPropagation();
@@ -81,6 +82,22 @@ this.svg.on('contextmenu', function(d) {
 });
 
 this.defs = svg.append('svg:defs');
+
+function mouseDown() {
+    var m = d3.mouse(this);
+
+    var line = d3.selectAll('svg').append('line')
+        .attr('x1', m[0])
+        .attr('x2', m[1])
+        .attr('y1', m[0])
+        .attr('y2', m[1]);
+
+    d3.selectAll('svg').on('mousemove', function(d){
+        var m = d3.mouse(this);
+        line.attr('x2', m[0])
+            .attr('y2', m[1])
+    });
+}
 
 function createGrid() {
     // Create the grid background
@@ -131,6 +148,10 @@ function createNodes() {
             // Do stuff here, delete edit etc
             alert(d.label);
         });
+        // .on('mousedown', mouseDown)
+        // .on('mouseup', function(d){
+        //      this.svg.on("mousemove", null);
+        // });
 
     node.append('text').text(function(d) {
             return d.label;
@@ -186,10 +207,9 @@ function createLinks() {
         .attr('markerHeight', 10)
         .attr('markerWidth', 10)
         .attr('markerUnits', 'strokeWidth')
-        .attr('refX', 0)
-        .attr('refY', 0)
+        .attr('refX', 1)
+        .attr('refY', 1)
         .attr('orient', 'auto')
-        .attr('viewbox', '10 10 0 0')
         .append('path')
         .attr('d', 'M 0 0 L 10 5 L 5 10 z')
         .attr('fill', 'black');
@@ -218,6 +238,11 @@ function createLinks() {
         return 'url(#marker_' + d.id + ')'
     });
 }
+
+function killall() {
+
+}
+
 
 createGrid();
 createNodes();
